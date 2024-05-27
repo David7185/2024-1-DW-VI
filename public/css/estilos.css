@@ -1,0 +1,17 @@
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+footer a{
+    color: white !important;
+    text-decoration:none;
+}
+h5.title, .nav-item{
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    margin-right: 2rem;
+}
