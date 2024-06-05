@@ -4,6 +4,7 @@ require_once '../app/librerias/jwt_utils.php';
 class Reuniones extends Controlador {
     public function __construct() {
         $this->reunionModel = $this->modelo('ReunionModel');
+        $this->actaModel = $this->modelo('ActaModel');
         
         // Iniciar sesión si no está iniciada
         if (session_status() == PHP_SESSION_NONE) {
@@ -151,49 +152,20 @@ class Reuniones extends Controlador {
         }
     }
 
-    public function cerrar($id) {
+   
+    public function eliminar($id) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $reunion = $this->reunionModel->obtenerReunionId($id);
-            $datos = [
-                'id' => $reunion->id,
-                'estado' => 0,
-            ];
-            if ($this->reunionModel->cerrar($datos)) {
-                $data = [
-                    'ok' => true,
-                    'msg' => 'Registro cerrado con éxito'
-                ];
-            } else {
-                $data = [
-                    'ok' => false,
-                    'msg' => 'Ha ocurrido un error'
-                ];
-            }
-            echo json_encode($data, true);
+            $this->actaModel->eliminarActasPorIdReunion(['id' => $id]);
+            $result = $this->reunionModel->eliminar(['id' => $id]);
+            $response = $result ? 
+                ['ok' => true, 'msg' => 'Registro eliminado con éxito'] : 
+                ['ok' => false, 'msg' => 'Ha ocurrido un error'];
+    
+            echo json_encode($response);
+            $this->vista('reuniones/index');
         }
     }
-
-    public function reingresar($id) {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $reunion = $this->reunionModel->obtenerReunionId($id);
-            $datos = [
-                'id' => $reunion->id,
-                'estado' => 1,
-            ];
-            if ($this->reunionModel->cerrar($datos)) {
-                $data = [
-                    'ok' => true,
-                    'msg' => 'Registro reingresado con éxito'
-                ];
-            } else {
-                $data = [
-                    'ok' => false,
-                    'msg' => 'Ha ocurrido un error'
-                ];
-            }
-            echo json_encode($data, true);
-        }
-    }
+    
 }
 ?>
 

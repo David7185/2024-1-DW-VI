@@ -98,11 +98,11 @@ class Auth extends Controlador{
                         $_SESSION['token'] = $token;
 
                         // Configurar el encabezado de respuesta para JSON
-                        header('Content-Type: application/json');
+                        // header('Content-Type: application/json');
                        
 
                         // Devolver el token JWT en formato JSON
-                        echo json_encode(['token' => $token]);
+                        // echo json_encode(['token' => $token]);
 
                         
 

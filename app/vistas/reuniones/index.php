@@ -19,8 +19,6 @@
               <th scope="col">Hora inicio</th>
               <th scope="col">Hora fin</th>
               <th scope="col">Dia</th>
-              <th scope="col">Invitados</th>
-              <th scope="col">Estado</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -32,22 +30,10 @@
                             <td><?php echo $reunion->hora_inicio ?></td>
                             <td><?php echo $reunion->hora_fin ?></td>
                             <td><?php echo $reunion->dia ?></td>
-                            <td><?php echo $reunion->invitados ?></td>
-                            <?php if($reunion->estado){ ?>
-                             <td><span class="badge bg-success">Abierto</span></td>
-                             <?php } ?>
-                             <?php if(!$reunion->estado){ ?>
-                             <td><span class="badge bg-danger">Cerrado</span></td>
-                             <?php } ?>
                             <td>
                             <a href="<?php echo RUTA_URL;?>actas/<?php echo $reunion->id?>" class="btn btn-info">Ver detalle</a>
                             <a href="<?php echo RUTA_URL;?>reuniones/editar/<?php echo $reunion->id?>" class="btn btn-warning">Editar</a>
-                            <?php if(!$reunion->estado){ ?>
-                            <a  href="#"  title="Eliminar registro" data-href="<?=RUTA_URL?>reuniones/reingresar/<?=$reunion->id;?>" class="btn btn-info reingresar">Reingresar</a>
-                            <?php } ?>
-                            <?php if($reunion->estado){ ?>
-                            <a  href="#"  title="Cerrar registro" data-href="<?=RUTA_URL?>reuniones/cerrar/<?=$reunion->id;?>" class="btn btn-danger eliminar">Cerrar</a>
-                            <?php } ?>
+                            <a  href="#"  title="Eliminar registro" data-href="<?=RUTA_URL?>reuniones/eliminar/<?=$reunion->id;?>" class="btn btn-danger eliminar">Eliminar</a>
                           </td>
                         </tr>
                        

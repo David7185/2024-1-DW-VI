@@ -48,7 +48,13 @@ class ActaModel
         $this->db->bind(':id_reunion', $id_reunion);
 
         $resultados = $this->db->registros();
-        return $resultados;
+
+        // Verifica si se encontraron registros y devuelve los resultados junto con un valor booleano
+        if ($resultados) {
+            return ['encontrado' => true, 'actas' => $resultados];
+        } else {
+            return ['encontrado' => false, 'actas' => []];
+        }
     }
 
     public function actualizarActa($datos)
@@ -77,6 +83,18 @@ class ActaModel
         $this->db->query("DELETE FROM actas WHERE id = :id");
         // Vincular los valores
         $this->db->bind(':id', $id);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // Función para eliminar registros en la tabla actas por id_reunion
+    public function eliminarActasPorIdReunion($id_reunion)
+    {
+        $this->db->query("DELETE FROM actas WHERE id_reunion = :id_reunion");
+        $this->db->bind(':id_reunion', $id_reunion);
 
         if ($this->db->execute()) {
             return true;
